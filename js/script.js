@@ -13,12 +13,16 @@ const scissors_div = document.getElementById("scissors");
 
 function getComputerChoice()
 {
-  
+  const choices = ['rock', 'paper', 'scissors'];
+  const randomNumber = Math.floor(Math.random()* 3);
+  return choices[randomNumber];
 }
 
 function game(userChoice)
 {
-
+  const compChoice = getComputerChoice();
+  console.log("User Choice => " + userChoice);
+  console.log("Computer choice => " + compChoice);
 }
 
 function main()
