@@ -1,11 +1,11 @@
-const usersScore = 0;
-const compsScore = 0;
+let usersScore = 0;
+let compsScore = 0;
 
 const usersScore_span = document.getElementById("userScore");
 const compsScore_span = document.getElementById("compScore");
 
 const scoreBoard_div = document.querySelector(".scoreBoard");
-const result_div = document.querySelector(".result");
+const result_p = document.querySelector(".result > p");
 
 const rock_div = document.getElementById("rock");
 const paper_div = document.getElementById("paper");
@@ -18,6 +18,40 @@ function getComputerChoice()
   return choices[randomNumber];
 }
 
+function convertToWord(letter)
+{
+  if(letter === "rock") return "Rock";
+  if(letter === "paper") return "Paper";
+  return "Scissors";
+}
+
+function win(user, computer)
+{
+  usersScore++;
+  usersScore_span.innerHTML = usersScore;
+  compsScore_span.innerHTML = compsScore;
+  const smallUserWord = "user".fontsize(3).sub();
+  const smallCompWord = "comp".fontsize(3).sub();
+  result_p.innerHTML = `${convertToWord(user)}${smallUserWord} beats ${convertToWord(computer)}${smallCompWord}. You Win!"`;
+}
+
+function lose(user, computer)
+{
+  compsScore++;
+  usersScore_span.innerHTML = usersScore;
+  compsScore_span.innerHTML = compsScore;
+  const smallUserWord = "user".fontsize(3).sub();
+  const smallCompWord = "comp".fontsize(3).sub();
+  result_p.innerHTML = `${convertToWord(computer)}${smallCompWord} loses to ${convertToWord(user)}${smallUserWord}. You Lose!"`;
+}
+
+function draw(user, computer)
+{
+  const smallUserWord = "user".fontsize(3).sub();
+  const smallCompWord = "comp".fontsize(3).sub();
+  result_p.innerHTML = `${convertToWord(user)} equals ${convertToWord(computer)}. It's a Draw!`;
+}
+
 function game(userChoice)
 {
   const compChoice = getComputerChoice();
@@ -26,17 +60,17 @@ function game(userChoice)
     case "rockscissors":
     case "paperrock":
     case "scissorspaper":
-      console.log("USER WINS!");
+      win(userChoice, compChoice);
       break;
     case "rockpaper":
     case "paperscissors":
     case "scissorsrock":
-      console.log("USER LOSES!");
+      lose(userChoice, compChoice);
       break;
     case "rockrock":
     case "paperpaper":
     case "scissorsscissors":
-      console.log("DRAW!");
+      draw(userChoice, compChoice);
       break;
   }
 }
